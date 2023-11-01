@@ -25,3 +25,13 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+## Usage
+
+Once the application is running, you can seamlessly manage your tasks by making requests to the provided API
+endpoints.
+Feel free to use tools like Postman or `curl` for making API requests and manage your tasks.
+
+## Health Endpoint
+- **GET /actuator/health**: check the status of the application.

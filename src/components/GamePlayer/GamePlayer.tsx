@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
-import CountDownTimer from "./subcomponents/CountdownTimer";
+import './css/game_player.css';
+import CountDownTimer from "./parts/CountdownTimer";
 
 const trackInfo = [
     { audio: "https://cdns-preview-0.dzcdn.net/stream/c-0aaac8863ef0071300c0c99eb5aa8b5b-4.mp3", title: "Queen: Bohemian Rhapsody" },

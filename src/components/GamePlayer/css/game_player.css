@@ -5,8 +5,6 @@
   src: url('../fonts/digital-readout.heavy.ttf');
 }
 
-
-
 @keyframes neonShimmerPlayer {
   from {
     border-color: chartreuse;

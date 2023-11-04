@@ -29,7 +29,7 @@ const GamePlayer: React.FC = () => {
 
     return (
         <div>
-            <h1>🎵🎶The super music playa game!🎵🎶</h1>
+
             <fieldset className="trackcontainer" >
 
                 <legend>Select the name of each track, below</legend>

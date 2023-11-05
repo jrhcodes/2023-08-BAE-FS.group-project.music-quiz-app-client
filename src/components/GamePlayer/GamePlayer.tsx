@@ -32,7 +32,6 @@ const GamePlayer: React.FC = () => {
 
             <fieldset className="trackcontainer" >
 
-                <legend>Select the name of each track, below</legend>
                 {trackInfo.map(
                     (_, index) => {
                         const thisTrackIsPlaying = index === trackId - 1;

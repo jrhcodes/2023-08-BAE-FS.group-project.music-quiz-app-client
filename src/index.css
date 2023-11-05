@@ -28,10 +28,10 @@
 
 body {
   margin: 0;
+  padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: radial-gradient(purple, black);
-  ;
   font-family: "Barlow", "Alumni Sans", "Arial";
   color: orchid;
 }
@@ -39,6 +39,7 @@ body {
 button {
   border-style: none;
   font-family: "Barlow", "Arial";
+  border-radius: 20px;
 }
 
 @keyframes headerGlow {
@@ -59,9 +60,11 @@ button {
 h1 {
   font-family: "Neonderthaw", "Arial";
   font-size: 60px;
-  text-align: left;
+  text-align: center;
   color: pink;
-  background: mauve;
+  background: none;
+  padding: 0;
+  margin: 0;
   animation-duration: 6s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
@@ -80,14 +83,21 @@ h1 {
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
-  width: 200px;
-  margin: 1em;
-  padding: 1em;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
   border-width: 8px;
   border-radius: 50px;
   border-style: solid;
   background-image: radial-gradient(purple, black);
 }
+
+.trackfield>*,
+.activeTrackfield>* {
+  padding: 10px;
+  margin: 10px;
+}
+
 
 .trackfield {
   border-color: rgba(128, 255, 0, 0.212);
@@ -104,11 +114,13 @@ h1 {
 
 .trackcontainer {
   display: flex;
+  padding: 0;
+  margin: 0;
   flex-direction: row;
   flex-wrap: wrap;
   border-radius: 50px;
   border-width: 10px;
-  width: fit-content;
+  width: 1280px;
   background-image: radial-gradient(black, purple);
   justify-content: space-evenly;
 }

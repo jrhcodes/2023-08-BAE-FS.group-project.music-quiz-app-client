@@ -12,7 +12,7 @@ const useSecondTimer = (duration: number) => {
       setTimeout(() => {
         setCountdown(remaining);
         console.log("beep");
-      }, Math.random() * 100 + 50);
+      }, 75);
     }
     else {
       setCountdown(0);

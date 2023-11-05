@@ -2,21 +2,17 @@ interface TrackCardProps {
     index: number;
     indexOfTrackPlaying: number;
     trackName: string;
-    mp3Url: string;
-
-    playTrack(track: string): void;
-    key: string;
+    playTrack(trackIndex: number): void;
 }
 
 
-const TrackCard: React.FC<TrackCardProps> = ({ index, indexOfTrackPlaying: indexOfTrackPlaying, trackName, mp3Url, playTrack }) => {
+const TrackCard: React.FC<TrackCardProps> = (props): JSX.Element => {
     return <>
-        <fieldset className={index === indexOfTrackPlaying ? "activeTrackfield" : "trackfield"} onClick={() => playTrack(mp3Url)} >
-            < button > Play Track {index + 1} ▶ </button >
-            <div className="trackname" id={"trackName" + index} draggable="true"> {trackName}</div>
+        <fieldset className={props.index === props.indexOfTrackPlaying ? "activeTrackfield" : "trackfield"} onClick={() => props.playTrack(props.index)} >
+            < button > Play Track {props.index + 1} ▶ </button >
+            <div className="trackname" id={"trackName" + props.index} draggable="true"> {props.trackName}</div>
         </fieldset >
     </>
-
 }
 
 export default TrackCard;

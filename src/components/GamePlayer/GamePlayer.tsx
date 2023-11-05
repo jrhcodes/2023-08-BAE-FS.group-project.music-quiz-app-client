@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CountDownTimer from "./parts/CountdownTimer";
+import TrackCard from "./parts/TrackCard";
 
 const trackInfo = [
     { audio: "https://cdns-preview-0.dzcdn.net/stream/c-0aaac8863ef0071300c0c99eb5aa8b5b-4.mp3", title: "Queen: Bohemian Rhapsody" },
@@ -16,9 +17,9 @@ const trackInfo = [
     { audio: "https://cdns-preview-8.dzcdn.net/stream/c-8bbf0b1167b44b72bd75c369835fabe5-4.mp3", title: "Enter the Haggis: Donald, Where's Yer Troosers" },
 ].sort(() => Math.random() - 0.5);
 
-
 const GamePlayer: React.FC = () => {
-    const [trackId, setTrackId] = useState(0);
+
+    const [indexOfTrackPlaying, setTrackId] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [trackOptions,] = useState([...trackInfo.map(track => track.title).sort(() => Math.random() - 0.5)]);
     const playTrack = (trackId: number) => {
@@ -26,30 +27,21 @@ const GamePlayer: React.FC = () => {
         setIsPlaying(true);
     };
 
-
-
     return (
         <div className="gameplayer">
-
             <fieldset className="trackcontainer" >
-
-                {trackInfo.map(
-                    (_, index) => {
-                        const thisTrackIsPlaying = index === trackId - 1;
-                        return <fieldset onClick={() => playTrack(index + 1)} className={thisTrackIsPlaying ? "activeTrackfield" : "trackfield"}>
-                            {<button>Mystery Tune {index + 1} ▶ </button>}
-                            <div className="trackname" id={"trackName" + index} draggable="true"
-                            > {trackOptions[index]}</div>
-                        </fieldset>
-                    }
-                )}
-
+                {trackOptions.map((trackInfo, index) =>
+                    <TrackCard
+                        index={index}
+                        indexOfTrackPlaying={indexOfTrackPlaying}
+                        trackName={trackInfo}
+                        playTrack={playTrack}
+                    />)}
             </fieldset>
-
             <fieldset className="lowerFieldSet">
                 <legend>Game controls:</legend>
                 <CountDownTimer />
-                {<audio loop className="tunePlayer" autoPlay={true} controls src={trackId === 0 ? "" : trackInfo[trackId - 1].audio} muted={!isPlaying}></audio>}
+                {<audio loop className="tunePlayer" autoPlay={true} controls src={indexOfTrackPlaying === 0 ? "" : trackInfo[indexOfTrackPlaying - 1].audio} muted={!isPlaying}></audio>}
                 <button onClick={() => alert("Who knows? Logic not yet implemented!")}>DONE!</button>
             </fieldset>
         </div >

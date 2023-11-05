@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './css/game_player.css';
 import CountDownTimer from "./parts/CountdownTimer";
 
 const trackInfo = [

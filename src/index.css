@@ -1,7 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ruge+Boogie&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap');
 
 @font-face {
@@ -60,7 +57,7 @@ button {
 
 
 h1 {
-  font-family: "Neonderthaw", "Ruge Boogie", "Barlow", "Arial";
+  font-family: "Neonderthaw", "Arial";
   font-size: 60px;
   text-align: left;
   color: pink;

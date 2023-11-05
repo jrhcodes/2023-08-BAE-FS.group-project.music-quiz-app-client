@@ -43,11 +43,7 @@ body {
   color: orchid;
 }
 
-button {
-  border-style: none;
-  font-family: "Barlow", "Arial";
-  border-radius: 20px;
-}
+
 
 @keyframes headerGlow {
   from {
@@ -64,7 +60,7 @@ button {
 }
 
 
-h1 {
+header>h1 {
   font-family: "Neonderthaw", "Arial";
   font-size: 60px;
   text-align: center;
@@ -80,11 +76,13 @@ h1 {
   animation-name: headerGlow;
 }
 
-.trackName {
-  background: black;
+.trackname {
+  background: purple;
+  color: white;
   text-align: center;
   border-radius: 8px;
   height: 40px;
+  box-shadow: 2px 2px 4px 0px white;
 }
 
 .trackfield,
@@ -110,6 +108,7 @@ h1 {
 
 .trackfield {
   border-color: rgba(128, 255, 0, 0.212);
+
 }
 
 .activeTrackfield {
@@ -262,4 +261,12 @@ fieldset>legend {
   animation-duration: 5s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+
+button {
+  border-style: solid;
+  color: white;
+  background: purple;
+  font-family: "Barlow", "Arial";
+  border-radius: 20px;
 }

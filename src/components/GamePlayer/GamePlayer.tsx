@@ -26,17 +26,19 @@ const GamePlayer: React.FC = () => {
         setIsPlaying(true);
     };
 
+
+
     return (
-        <div>
+        <div className="gameplayer">
 
             <fieldset className="trackcontainer" >
 
                 {trackInfo.map(
                     (_, index) => {
                         const thisTrackIsPlaying = index === trackId - 1;
-                        return <fieldset className={thisTrackIsPlaying ? "activeTrackfield" : "trackfield"}>
-                            <button onClick={() => playTrack(index + 1)}>Mystery Track {index + 1} ▶ </button>
-                            <div className="trackName" id={"trackName" + index} draggable="true"
+                        return <fieldset onClick={() => playTrack(index + 1)} className={thisTrackIsPlaying ? "activeTrackfield" : "trackfield"}>
+                            {<button>Mystery Tune {index + 1} ▶ </button>}
+                            <div className="trackname" id={"trackName" + index} draggable="true"
                             > {trackOptions[index]}</div>
                         </fieldset>
                     }

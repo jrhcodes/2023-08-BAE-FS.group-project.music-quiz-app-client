@@ -49,7 +49,7 @@ const GamePlayer: React.FC = () => {
             <fieldset className="lowerFieldSet">
                 <legend>Game controls:</legend>
                 <CountDownTimer />
-                {<audio loop autoPlay={true} controls src={trackId === 0 ? "" : trackInfo[trackId - 1].audio} muted={!isPlaying}></audio>}
+                {<audio loop className="tunePlayer" autoPlay={true} controls src={trackId === 0 ? "" : trackInfo[trackId - 1].audio} muted={!isPlaying}></audio>}
                 <button onClick={() => alert("Who knows? Logic not yet implemented!")}>DONE!</button>
             </fieldset>
         </div >

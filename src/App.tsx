@@ -1,16 +1,15 @@
 import './App.css'
-import Header from './components/Header';
-import Footer from './components/Footer';
-import GamePlayer from './components/GamePlayer/GamePlayer'
+import { BrowserRouter } from 'react-router-dom';
+import Router from './components/router/router'
 
 document.title = 'SwapSounds from The A-Listers';
 // test
 function App() {
   return (
     <>
-      <Header></Header>
-      <GamePlayer></GamePlayer>
-      <Footer></Footer>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </>
   )
 }

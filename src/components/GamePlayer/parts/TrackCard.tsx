@@ -5,7 +5,6 @@ interface TrackCardProps {
     playTrack(trackIndex: number): void;
 }
 
-
 const TrackCard: React.FC<TrackCardProps> = (props): JSX.Element => {
     return <>
         <fieldset className={props.index === props.indexOfTrackPlaying ? "activeTrackfield" : "trackfield"} onClick={() => props.playTrack(props.index)} >

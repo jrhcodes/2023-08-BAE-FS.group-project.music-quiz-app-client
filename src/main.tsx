@@ -5,13 +5,13 @@ import App from './App.tsx'
 import './index.css'
 import reportWebVitals from './reportWebVitals.ts';
 
-const authClientId: string = process.env.REACT_APP_CLIENT_ID = "";
+// const authClientId: string = process.env.REACT_APP_CLIENT_ID = "";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* <GoogleOAuthProvider clientId={authClientId}> */}
+
       <App />
-    {/* </GoogleOAuthProvider> */}
+
   </React.StrictMode>,
 )
 

@@ -5,14 +5,12 @@ import App from './App.tsx'
 import './index.css'
 import reportWebVitals from './reportWebVitals.ts';
 
-// const authClientId: string = process.env.REACT_APP_CLIENT_ID = "";
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
+    <React.StrictMode>
       <App />
-
-  </React.StrictMode>,
+    </React.StrictMode>
+  </GoogleOAuthProvider>,
 )
 
 // To start measuring performance in app, pass a function

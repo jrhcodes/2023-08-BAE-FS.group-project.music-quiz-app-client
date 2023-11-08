@@ -1,92 +1,119 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import getGame from '../../dto/getGameDTO';
+import getHighScore, { GetHighScoreResponseDTO } from '../../dto/getHighScoreDTO';
+import getUserHighScore, { GetUserHighScoreResponseDTO } from '../../dto/getUserHighScoreDTO';
 
 const Welcome: React.FC = () => {
-    const userId = "props.user";
+    const navigate = useNavigate();
+    // TODO: get USER ID from context 
+    const userId = "X";
 
-    const getHighScoresFromAPI = (userId: string) => {
-        console.log(userId);
-        return {
-            highScores: [
-                { index: 1, name: "bill gates", score: 12, time: 10.3 },
-                { index: 2, name: "gordon bennet", score: 12, time: 11.3 },
-                { index: 3, name: "eric idle", score: 12, time: 12.2 },
-                { index: 4, name: "boris karloff", score: 12, time: 60 },
-                { index: 5, name: "smaug", score: 11, time: 11.2 },
-                { index: 6, name: "boris johnson", score: 11, time: 60 },
-                { index: 7, name: "eric idle", score: 11, time: 12.2 },
-                { index: 8, name: "boris johnson", score: 10, time: 60 },
-                { index: 9, name: "eric idle", score: 10, time: 12.2 },
-                { index: 10, name: "boris johnson", score: 1, time: 60 }
-            ],
-            userHighScores: [
-                { index: 1, score: 12, time: 45 },
-                { index: 1, score: 12, time: 45 },
-                { index: 1, score: 12, time: 45 },
-                { index: 1, score: 12, time: 45 },
-                { index: 1, score: 12, time: 45 },
-                { index: 1, score: 12, time: 45 },
-                { index: 1, score: 12, time: 45 },
-                { index: 1, score: 12, time: 45 },
-                { index: 1, score: 12, time: 45 }
-            ]
+    const [gameLoaded, setDataLoaded] = useState(false);
+    const [songName, setSongName] = useState<string[]>([]);
+    const [songURL, setSongURL] = useState<string[]>([]);
+
+    const [highScoreLoaded, setHighScoreLoaded] = useState(false);
+    const [highScore, setHighScore] = useState<GetHighScoreResponseDTO[]>();
+
+    const [userHighScoreLoaded, setUserHighScoreLoaded] = useState(false);
+    const [userHighScore, setUserHighScore] = useState<GetUserHighScoreResponseDTO[]>();
+
+    const asyncFetchGameDTO = async () => {
+
+        if (!gameLoaded) {
+
+            const gameDTO = await getGame();
+
+            setSongName(gameDTO.songName);
+            setSongURL(gameDTO.songURL);
+
+
+            if (songName && songURL) {
+                setDataLoaded(true);
+            }
+
+            console.log(songName, songURL);
 
         }
 
-    }
+    };
 
-    const navigate = useNavigate();
+    const asyncFetchHighScoreDTO = async () => {
 
-    const { highScores, userHighScores } = getHighScoresFromAPI(userId);
+        const highscoreDTO = await getHighScore();
 
-    return <>
-        <div>
-            <div className="highScoreTable">
-                <table>
-                    <caption>High Scores</caption>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>User Name</th>
-                            <th>Score</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {highScores.map(({ index, name, score, time }) => <tr>
+        if (!highScoreLoaded) {
+            setHighScoreLoaded(true);
+            setHighScore(highscoreDTO);
+        }
+
+    };
+
+    const asyncFetchUserHighScoreDTO = async (userId: string) => {
+
+        if (!userHighScoreLoaded) {
+            const userHighScoreDTO = await getUserHighScore(userId);
+            setUserHighScoreLoaded(true);
+            setUserHighScore(userHighScoreDTO);
+
+        }
+
+    };
+
+    useEffect(() => {
+        asyncFetchGameDTO();
+        asyncFetchHighScoreDTO();
+        asyncFetchUserHighScoreDTO(userId);
+    }, []);
+
+
+
+
+    return <div className="welcomeMain">
+        <div className="welcomeHighscoreContainer">
+            <table className="welcomeHighScoreTable">
+                <caption>High Scores</caption>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>User Name</th>
+                        <th>Score</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        highScore && highScore.map(({ username, score, time }, index) => <tr>
                             <td>{index}</td>
-                            <td>{name}</td>
+                            <td>{username}</td>
                             <td>{score}</td>
                             <td>{time}</td>
-                        </tr>)}
-                    </tbody>
-                </table>
-            </div>
+                        </tr>)
+                    }
+                </tbody>
+            </table>
 
-            <div className="userHighScoreTable">
-                <table>
-
-                    <thead>
-                        <caption>Yoru Personal High Scores</caption>
-                        <tr>
-                            <th>Rank</th>
-                            <th>User Name</th>
-                            <th>Score</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userHighScores.map(({ index, score, time }) => <tr>
-                            <td>{index}</td>
-                            <td>{score}</td>
-                            <td>{time}</td>
-                        </tr>)}
-                    </tbody>
-                </table>
-            </div>
+            <table className="welcomeUserHighScoreTable">
+                <caption>Your High Scores</caption>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Score</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {userHighScore && userHighScore.map(({ position, score, time }) => <tr>
+                        <td>{position}</td>
+                        <td>{score}</td>
+                        <td>{time.toFixed(2)}</td>
+                    </tr>)}
+                </tbody>
+            </table>
         </div>
-        <button className="Start Game" onClick={() => navigate("/gameplayer")}>Start Game</button>
-    </>
+        {<button disabled={!gameLoaded} onClick={() => navigate("/gameplayer", { state: { trackNames: songName, mp3URLs: songURL } })}>{gameLoaded ? "Start Game" : "Loading game data..."}</button>}
+    </div>
 }
 export default Welcome;
 

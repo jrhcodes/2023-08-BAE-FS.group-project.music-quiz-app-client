@@ -1,23 +1,24 @@
 export interface PostUserGameRequestDTO {
     userId: string;
-    songNames: string[];
+    songName: string[];
     songURL: string[];
-    userTimeTaken: number;
-}
-
-export interface PostUserGameResponseDTO {
-    userId: string;
-    correctSongNames: string[];
-    correctSongURL: string[];
     userAtPosition: string[];
     userScore: number;
 }
 
-const putUserHighScore = async (request: PostUserGameRequestDTO): Promise<PostUserGameResponseDTO> => {
-    const apiUrl = `http://localhost:8080/api/v1/musicquiz/game"`;
+export interface PostUserGameResponseDTO {
+    userId: string;
+    songName: string[];
+    songURL: string[];
+    userAtPosition: string[];
+    userScore: number;
+}
+
+const postUserHighScore = async (request: PostUserGameRequestDTO): Promise<PostUserGameResponseDTO> => {
+    const apiUrl = "http://localhost:8080/api/v1/musicquiz/game";
 
     const response = await fetch(apiUrl, {
-        method: 'PUT',
+        method: 'POST',
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
@@ -34,4 +35,4 @@ const putUserHighScore = async (request: PostUserGameRequestDTO): Promise<PostUs
     return data;
 };
 
-export default putUserHighScore;
+export default postUserHighScore;

@@ -4,7 +4,6 @@ interface GetGameResponseDTO {
     songName: string[];
     songURL: string[];
     songArtistForSelection: string[];
-
 }
 
 const gameUrl = "http://localhost:8080/api/v1/musicquiz/game?numberOfSongs=12";

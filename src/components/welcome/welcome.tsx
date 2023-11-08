@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import getGame from '../../dto/getGameDTO';
 import getHighScore, { GetHighScoreResponseDTO } from '../../dto/getHighScoreDTO';
 import getUserHighScore, { GetUserHighScoreResponseDTO } from '../../dto/getUserHighScoreDTO';
+import { UserProfileContext } from '../userProfile/useUserProfile';
 
 const Welcome: React.FC = () => {
+
     const navigate = useNavigate();
-    // TODO: get USER ID from context 
-    const userId = "X";
+
+    const { userProfile, } = useContext(UserProfileContext);
+    const [userId,] = useState(userProfile.id);
 
     const [gameLoaded, setDataLoaded] = useState(false);
     const [songName, setSongName] = useState<string[]>([]);
@@ -84,7 +87,7 @@ const Welcome: React.FC = () => {
                 </thead>
                 <tbody>
                     {
-                        highScore && highScore.map(({ username, score, time }, index) => <tr>
+                        highScore && highScore.map(({ userName: username, score, time }, index) => <tr>
                             <td>{index}</td>
                             <td>{username}</td>
                             <td>{score}</td>

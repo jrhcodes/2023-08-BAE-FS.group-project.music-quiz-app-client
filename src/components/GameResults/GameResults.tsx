@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router';
 
-import putUserHighScore from "../../dto/postUserScoreDTO";
+import postUserHighScore from "../../dto/postUserScoreDTO";
+import { UserProfileContext } from "../userProfile/useUserProfile";
 
 const GameResults: React.FC = () => {
     console.log("SCREEN: GameResults");
@@ -12,29 +13,31 @@ const GameResults: React.FC = () => {
     const [songNames,] = useState(gameResults.trackNames);
     const [songURL,] = useState(gameResults.mp3URLs);
     const [userTimeTaken,] = useState(gameResults.timeTaken);
-    const [resultsLoaded, setResultsLoaded] = useState(true);
+    const [resultsLoaded, setResultsLoaded] = useState(false);
+    const { userProfile, } = useContext(UserProfileContext);
+    const [userId,] = useState(userProfile.id);
 
     const [correctSongNames, setCorrectSongNames] = useState<string[]>([]);
     const [correctURLs, setCorrectURL] = useState<string[]>([]);
 
-    // TODO: add to screen
     const [userScore, setUserScore] = useState(0);
 
-    const sendResultsAndGetAnswers = async (userId: string, songNames: string[], songURL: string[], userTimeTaken: number) => {
+    const sendResultsAndGetAnswers = async (userId: string, songName: string[], songURL: string[], userTimeTaken: number) => {
 
         if (!resultsLoaded) {
-            setResultsLoaded(true);
-            const result = await putUserHighScore({ userId, songNames, songURL, userTimeTaken });
+            console.log("GameResults POSTED DATA");
 
-            setCorrectURL(result.correctSongURL);
-            setCorrectSongNames(result.correctSongNames);
+            setResultsLoaded(true);
+            const result = await postUserHighScore({ userId, songName, songURL, userTimeTaken });
+
+            setCorrectURL(result.songURL);
+            setCorrectSongNames(result.songName);
             setUserScore(result.userScore);
+
         }
     }
 
     useEffect(() => {
-        // TODO: get user ID from context
-        const userId = "REPLACE ME"
         // TODO: reimplement code to get game duration
         sendResultsAndGetAnswers(userId, songNames, songURL, userTimeTaken);
     }, []);

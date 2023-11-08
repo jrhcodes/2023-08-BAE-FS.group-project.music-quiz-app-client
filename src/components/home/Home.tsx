@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { Navigate } from "react-router";
 import { UserProfile, UserProfileContext } from "../userProfile/useUserProfile";
@@ -7,17 +7,17 @@ import { UserProfile, UserProfileContext } from "../userProfile/useUserProfile";
 const Home: React.FC = () => {
     const [user, setUser]: any = useState();
     const { userProfile, setUserProfile } = useContext(UserProfileContext);
-    const [ serverResponse, setServerResponse ]: any = useState();
+    const [serverResponse, setServerResponse]: any = useState();
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => setUser(codeResponse),
         onError: (error) => console.log("Login Failed:", error),
     });
-
-    const logOut = () => {
-        googleLogout();
-        setUserProfile(null);
-    };
+    // // TODO: this
+    // const logOut = () => {
+    //     googleLogout();
+    //     setUserProfile(null);
+    // };
 
     useEffect(() => {
         if (user) {
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
 
     return (
         <section className="home-section">
-            {serverResponse  && userProfile ? (
+            {serverResponse && userProfile ? (
                 <>
                     {/* <button className='login-button' onClick={logOut}>Log out</button> */}
                     <Navigate to="/welcome" />

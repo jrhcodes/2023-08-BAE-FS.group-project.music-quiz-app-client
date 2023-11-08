@@ -1,9 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, } from "react";
+
+export const NULL_USER:UserProfile = {id:"", name:""};
 
 export type UserProfile = {
   id: string,
-  email?: string,
   name: string,
+  email?: string,
   family_name?: string,
   given_name?: string,
   locale?: string,
@@ -12,8 +14,8 @@ export type UserProfile = {
 }
 
 export type UserProfileContextType = {
-  userProfile: UserProfile | null;
-  setUserProfile: (userProfile: UserProfile | null) => void;
+  userProfile: UserProfile;
+  setUserProfile: (userProfile: UserProfile ) => void;
 };
 
 export const UserProfileContext = createContext<UserProfileContextType>(null!);

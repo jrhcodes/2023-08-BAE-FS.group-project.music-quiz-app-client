@@ -6,20 +6,25 @@ const useSecondTimer = (duration: number) => {
   const [countdown, setCountdown] = useState(duration);
 
 
+
   useEffect(() => {
-    const remaining = endCountDownDate - new Date().getTime();
-    if (remaining > 0) {
+
+    const updateCountdown = () => {
+      const remaining = endCountDownDate - new Date().getTime();
+      setCountdown(remaining);
+    }
+
+    if (countdown > 0) {
       setTimeout(() => {
-        setCountdown(remaining);
-        console.log("beep");
-      }, 75);
+        updateCountdown();
+      }, 77);
     }
     else {
       setCountdown(0);
     }
 
     return;
-  }, [endCountDownDate, countdown]);
+  }, [countdown, endCountDownDate]);
 
   return countdown;
 };

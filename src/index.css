@@ -7,10 +7,13 @@
 }
 
 #root {
+  --baseFontFace: Barlow;
   padding: 0;
   margin: 20px;
   width: 100%;
 }
+
+
 
 @keyframes neonShimmerPlayer {
   from {
@@ -104,7 +107,6 @@ header>h1 {
   padding: 10px;
   margin: 10px;
 }
-
 
 .trackfield {
   border-color: rgba(128, 255, 0, 0.212);
@@ -269,4 +271,102 @@ button {
   background: purple;
   font-family: "Barlow", "Arial";
   border-radius: 20px;
+}
+
+.welcomeHighscoreContainer {
+  display: flex;
+  padding: 10px;
+  box-sizing: content-box;
+  margin-left: 100px;
+  margin-right: 100px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: fit-content;
+  border-radius: 50px;
+
+  border: 10px solid;
+  background-image: radial-gradient(black, purple);
+  padding: 20px;
+  margin: 20px;
+  align-content: center;
+}
+
+.welcomeHighScoreTable,
+.welcomeUserHighScoreTable {
+  padding: 0 20px;
+  margin: 20px;
+  font-family: LEDFont;
+  font-size: 30px;
+  border: solid;
+  border-radius: 50px;
+  border-collapse: collapse;
+}
+
+.welcomeHighScoreTable>td,
+.welcomeUserHighScoreTable>td,
+.welcomehighScoreTable>th,
+.welcomeuserHighScoreTable>th {
+  border-left: 2px solid;
+  border-right: 2px solid;
+  text-align: right;
+  border-collapse: collapse;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.welcomeMain {
+  display: block;
+  width: 100%;
+  align-content: center;
+}
+
+.welcomeMain>button {
+  font-size: 60px;
+}
+
+.resultsMain {
+  display: flex;
+  padding: 10px;
+  box-sizing: content-box;
+  margin-left: 100px;
+  margin-right: 100px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: fit-content;
+  border-radius: 50px;
+  font-size: 20px;
+  background-image: radial-gradient(black, purple);
+  padding: 20px;
+  margin: 20px;
+  align-content: center;
+}
+
+.resultsTable {
+  padding: 0 20px;
+  margin: 20px;
+  font-family: LEDFont;
+  font-size: 30px;
+  border: solid;
+  border-radius: 50px;
+  border-collapse: collapse;
+}
+
+.resultsTable>th,
+.resultsTable>td {
+  border-left: 2px solid;
+  border-right: 2px solid;
+  text-align: right;
+  border-collapse: collapse;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.resultsMain>button {
+  font-size: 60px;
 }

@@ -1,21 +1,20 @@
-// import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-// import { Navigate, Route, Routes } from "react-router-dom";
+import { useContext } from 'react';
+import { UserProfileContext } from "../userProfile/useUserProfile";
+import { Navigate } from 'react-router';
 
-// type AllowedRoutes = "/" | "/profile";
+interface ProtectedRoute {
+    children?: React.ReactNode;
+}
 
-// const isAllowed = (route: string, allowedRoutes: AllowedRoutes[]): boolean => {
-//     return allowedRoutes.includes(Route.);
-// };
+const ProtectedRoute: React.FC<ProtectedRoute> = ({ children }) => {
+    const { userProfile} = useContext(UserProfileContext);
+    const isUserProfileContextAvailable = userProfile;
 
-// const ProtectedRoute: React.FC<{
-//     component: React.ReactElement;
-//     allowedRoutes: AllowedRoutes[];
-// }> = ({ component, allowedRoutes }) => {
-//     const isUserLogged = GoogleOAuthProvider.useAuth().user !== null;
-//     if (!isUserLogged || !isAllowed(window.location.pathname, allowedRoutes)) {
-//     return <Navigate to="/" />;
-// }
-// return component;
-// };
+    if (!isUserProfileContextAvailable) {
+        return <Navigate to="/" />;
+    }
 
-// export default ProtectedRoute;
+    return children;
+};
+
+export default ProtectedRoute;

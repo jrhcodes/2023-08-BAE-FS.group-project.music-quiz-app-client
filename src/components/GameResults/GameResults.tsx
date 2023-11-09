@@ -11,9 +11,11 @@ const GameResults: React.FC = () => {
     const navigate = useNavigate();
     const [playURL, setPlayURL] = useState("");
     const gameResults = useLocation().state;
-    const [songName,] = useState<string[]>(gameResults.trackNames);
-    const [songURL,] = useState<string[]>(gameResults.mp3URLs);
-    const [correctSongName] = useState<string[]>(gameResults.answers);
+
+    const [songName,] = useState<string[]>([...gameResults.trackNames]);
+    const [songURL,] = useState<string[]>([...gameResults.mp3URLs]);
+    const [correctSongName] = useState<string[]>([...gameResults.answers]);
+
     const [userTimeTaken,] = useState<number>(gameResults.timeTaken);
     const [resultsLoaded, setResultsLoaded] = useState(false);
     const { userProfile, } = useContext(UserProfileContext);
@@ -64,11 +66,10 @@ const GameResults: React.FC = () => {
                 })}
             </tbody>
         </table>
-        <div className="resultsGameScore"><div>Score: {userScore}</div><div>TimeTaken: {userTimeTaken}<div>HighScore Ranking:{userPosition}</div></div></div>
+        <div className="resultsGameScore"><div>YOUR LAST GAME:</div><div>Score: {userScore}</div><div>TimeTaken: {userTimeTaken / 1000.0}s</div><div>HighScore Ranking:{userPosition}</div></div>
+
         <audio loop autoPlay={true} controls src={playURL} ></audio>
         <button onClick={() => navigate("/welcome")}>Finish</button>
-
-
 
     </div ></>;
 

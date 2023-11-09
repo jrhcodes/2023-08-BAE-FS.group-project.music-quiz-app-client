@@ -4,6 +4,8 @@ import getGame from '../../dto/getGameDTO';
 import getHighScore, { GetHighScoreResponseDTO } from '../../dto/getHighScoreDTO';
 import getUserHighScore, { GetUserHighScoreResponseDTO } from '../../dto/getUserHighScoreDTO';
 import { UserProfileContext } from '../userProfile/useUserProfile';
+import { v4 as uuidv4 } from 'uuid';
+import { GetGameResponseDTO } from '../../dto/getGameDTO';
 
 const Welcome: React.FC = () => {
 
@@ -18,19 +20,23 @@ const Welcome: React.FC = () => {
     const [correctName, setCorrectName] = useState<string[]>([]);
 
     const [highScoreLoaded, setHighScoreLoaded] = useState(false);
-    const [highScore, setHighScore] = useState<GetHighScoreResponseDTO[]>();
+    const [highScore, setHighScore] = useState<GetHighScoreResponseDTO[]>([]);
 
     const [userHighScoreLoaded, setUserHighScoreLoaded] = useState(false);
-    const [userHighScore, setUserHighScore] = useState<GetUserHighScoreResponseDTO[]>();
+    const [userHighScore, setUserHighScore] = useState<GetUserHighScoreResponseDTO[]>([]);
+    const [userHighScoreUUID, setUserHighScoreUUID] = useState<string[]>([]);
 
     const asyncFetchGameDTO = async () => {
 
         if (!gameLoaded) {
 
-            const gameDTO = await getGame();
-            setCorrectName(gameDTO.songName)
-            setSongName(gameDTO.songName.sort(() => Math.random()));
-            setSongURL(gameDTO.songURL);
+            const gameDTO: GetGameResponseDTO = await getGame();
+            console.log("Welcome, asyncFetchGameDTO", { gameDTO });
+            const songList = gameDTO.songName.map((song: string, index: number) => `"${song}", ${gameDTO.songArtist[index]}`);
+            setCorrectName([...songList]);
+            const randomisedArray = [...songList.sort(() => Math.random() - 0.5)];
+            setSongName([...randomisedArray]);
+            setSongURL([...gameDTO.songURL]);
 
 
             if (songName && songURL) {
@@ -45,11 +51,13 @@ const Welcome: React.FC = () => {
 
     const asyncFetchHighScoreDTO = async () => {
 
-        const highscoreDTO = await getHighScore();
+        const highScoreDTO = await getHighScore();
 
         if (!highScoreLoaded) {
             setHighScoreLoaded(true);
-            setHighScore(highscoreDTO);
+            setHighScore(highScoreDTO.map((score) => { return { ...score, uuid: uuidv4() } }));
+            setHighScore(highScoreDTO.map((score) => { return { ...score, uuid: uuidv4() } }));
+            console.log({ highScore });
         }
 
     };
@@ -60,7 +68,7 @@ const Welcome: React.FC = () => {
             const userHighScoreDTO = await getUserHighScore(userId);
             setUserHighScoreLoaded(true);
             setUserHighScore(userHighScoreDTO);
-
+            setUserHighScoreUUID(userHighScoreDTO.map(() => uuidv4()));
         }
 
     };
@@ -71,9 +79,8 @@ const Welcome: React.FC = () => {
         asyncFetchUserHighScoreDTO(userId);
     }, []);
 
-
-
-
+    const transferState = { state: { trackNames: songName, mp3URLs: songURL, answers: correctName } };
+    console.log({ transferState });
     return <div className="welcomeMain">
         <div className="welcomeHighscoreContainer">
             <table className="welcomeHighScoreTable">
@@ -88,35 +95,37 @@ const Welcome: React.FC = () => {
                 </thead>
                 <tbody>
                     {
-                        highScore && highScore.map(({ userName: username, score, time }, index) => <tr>
-                            <td>{index}</td>
-                            <td>{username}</td>
-                            <td>{score}</td>
-                            <td>{time}</td>
-                        </tr>)
+                        highScore && highScore
+                            .sort((a, b) => a.score == b.score ? a.time - b.time : a.score - b.score)
+                            .map(({ userName: username, score, time }, index) => <tr key={userHighScoreUUID[index]}>
+                                <td>{index}</td>
+                                <td>{username}</td>
+                                <td>{score}</td>
+                                <td>{time / 1000.0}</td>
+                            </tr>)
                     }
                 </tbody>
             </table>
 
             <table className="welcomeUserHighScoreTable">
-                <caption>Your High Scores</caption>
+                <caption>Your Bests</caption>
                 <thead>
                     <tr>
-                        <th>Rank</th>
                         <th>Score</th>
-                        <th>Time</th>
+                        <th>Time(s)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {userHighScore && userHighScore.map(({ position, score, time }) => <tr>
-                        <td>{position}</td>
-                        <td>{score}</td>
-                        <td>{time.toFixed(2)}</td>
-                    </tr>)}
+                    {userHighScore && userHighScore.sort((a, b) => a.score == b.score ? a.time - b.time : a.score - b.score)
+                        .map(({ score, time }) => <tr>
+                            <td>{score}</td>
+                            <td>{time / 1000.0}</td>
+                        </tr>)
+                    }
                 </tbody>
             </table>
         </div>
-        {<button disabled={!gameLoaded} onClick={() => navigate("/gameplayer", { state: { trackNames: songName, mp3URLs: songURL, answers: correctName } })}>{gameLoaded ? "Start Game" : "Loading game data..."}</button>}
+        {<button disabled={!gameLoaded} onClick={() => navigate("/gameplayer", transferState)}>{gameLoaded ? "Start Game" : "Loading game data..."}</button>}
     </div>
 }
 export default Welcome;

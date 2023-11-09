@@ -1,8 +1,9 @@
 import fetchDTO from './fetchDTO';
 
-interface GetGameResponseDTO { 
+export interface GetGameResponseDTO { 
     songName: string[];
     songURL: string[];
+    songArtist: string[];
     songArtistForSelection: string[];
 }
 

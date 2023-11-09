@@ -2,9 +2,9 @@ import useSecondTimer from '../hooks/useSecondTimer';
 import countdownAudio from '../audio/countdown.mp3';
 import React, { useState, useEffect } from 'react';
 
-const CountDownTimer: React.FC<{ endGame: () => void }> = (props) => {
+const CountDownTimer: React.FC<{ endGame: () => void; duration: number }> = (props) => {
 
-    const countdown = useSecondTimer(60000);
+    const countdown = useSecondTimer(props.duration);
     const isFinalSeconds = countdown < 8000;
     const [audio] = useState(new Audio(countdownAudio));
 

@@ -66,12 +66,10 @@ const GameResults: React.FC = () => {
                 })}
             </tbody>
         </table>
-        <div className="resultsGameScore"><div>YOUR LAST GAME:</div><div>Score: {userScore}</div><div>TimeTaken: {userTimeTaken}</div><div>HighScore Ranking:{userPosition}</div></div>
+        <div className="resultsGameScore"><div>YOUR LAST GAME:</div><div>Score: {userScore}</div><div>TimeTaken: {userTimeTaken / 1000.0}s</div><div>HighScore Ranking:{userPosition}</div></div>
 
         <audio loop autoPlay={true} controls src={playURL} ></audio>
         <button onClick={() => navigate("/welcome")}>Finish</button>
-
-
 
     </div ></>;
 

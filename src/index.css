@@ -299,21 +299,26 @@ button {
   margin: 20px;
   font-family: LEDFont;
   font-size: 30px;
+  border-color: white;
   border: solid;
   border-radius: 50px;
   border-collapse: collapse;
 }
 
-.welcomeHighScoreTable>td,
-.welcomeUserHighScoreTable>td,
-.welcomehighScoreTable>th,
-.welcomeuserHighScoreTable>th {
+.welcomeHighScoreTable td,
+.welcomeUserHighScoreTable td,
+.welcomehighScoreTable th,
+.welcomeuserHighScoreTable th {
   border-left: 2px solid;
   border-right: 2px solid;
   text-align: right;
+  align-content: right;
   border-collapse: collapse;
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-left: 10px;
+  margin-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+
 }
 
 .welcomeMain {
@@ -357,16 +362,17 @@ button {
   border-collapse: collapse;
 }
 
-.resultsTable>th,
-.resultsTable>td {
+.resultsTable th,
+.resultsTable td {
   border-left: 2px solid;
   border-right: 2px solid;
-  text-align: right;
+  border-top: 2px solid;
+  text-align: left;
   border-collapse: collapse;
   padding-left: 6px;
   padding-right: 6px;
-  margin: 10px;
-  padding: 10px;
+  margin: 4px;
+  padding: 4px;
 }
 
 .resultsGameScore {

@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 const GamePlayer: React.FC = () => {
+    const MAX_GAME_TIME = 90000;
     const gameResults = useLocation().state;
     const [mp3URLs,] = useState<string[]>([...gameResults.mp3URLs]);
     const [trackNames, setTrackNames] = useState<string[]>([...gameResults.trackNames]);
@@ -30,7 +31,7 @@ const GamePlayer: React.FC = () => {
     };
 
     const endGame = () => {
-        const transfer = { state: { trackNames: trackNames, mp3URLs: mp3URLs, timeTaken: Math.min((new Date().getTime() - gameStartTime) / 1000.0), answers: correctNames }, };
+        const transfer = { state: { trackNames: trackNames, mp3URLs: mp3URLs, timeTaken: Math.min(MAX_GAME_TIME, new Date().getTime() - gameStartTime), answers: correctNames }, };
         console.log({ transfer });
         navigate("/gameresults", transfer);
     };
@@ -55,7 +56,7 @@ const GamePlayer: React.FC = () => {
         </fieldset>
         <fieldset className="lowerFieldSet">
             <legend>Game controls:</legend>
-            <CountDownTimer endGame={endGame} />
+            <CountDownTimer duration={MAX_GAME_TIME} endGame={endGame} />
             {<audio loop className="tunePlayer" autoPlay={true} controls src={indexOfTrackPlaying === -1 ? "" : mp3URLs[indexOfTrackPlaying]} ></audio>}
             <button onClick={verifyEndGame}>DONE!</button>
         </fieldset>

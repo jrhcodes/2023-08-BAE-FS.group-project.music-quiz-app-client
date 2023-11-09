@@ -101,27 +101,26 @@ const Welcome: React.FC = () => {
                                 <td>{index}</td>
                                 <td>{username}</td>
                                 <td>{score}</td>
-                                <td>{time}</td>
+                                <td>{time / 1000.0}</td>
                             </tr>)
                     }
                 </tbody>
             </table>
 
             <table className="welcomeUserHighScoreTable">
-                <caption>Your High Scores</caption>
+                <caption>Your Bests</caption>
                 <thead>
                     <tr>
-                        <th>Rank</th>
                         <th>Score</th>
-                        <th>Time</th>
+                        <th>Time(s)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {userHighScore && userHighScore.map(({ position, score, time }) => <tr>
-                        <td>{position}</td>
-                        <td>{score}</td>
-                        <td>{time.toFixed(2)}</td>
-                    </tr>)
+                    {userHighScore && userHighScore.sort((a, b) => a.score == b.score ? a.time - b.time : a.score - b.score)
+                        .map(({ score, time }) => <tr>
+                            <td>{score}</td>
+                            <td>{time / 1000.0}</td>
+                        </tr>)
                     }
                 </tbody>
             </table>

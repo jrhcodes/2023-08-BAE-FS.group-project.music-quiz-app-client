@@ -19,8 +19,6 @@ const GamePlayer: React.FC = () => {
 
     console.log("SCREEN: GamePlayer");
 
-
-
     const swapTrackNames = (draggedIndex: number, droppedIndex: number) => {
         [trackNames[draggedIndex], trackNames[droppedIndex]] = [trackNames[droppedIndex], trackNames[draggedIndex]];
         setTrackNames([...trackNames]);

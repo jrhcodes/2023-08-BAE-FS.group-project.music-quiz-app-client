@@ -4,7 +4,7 @@ import Router from './components/router/router'
 import { UserProfile, UserProfileContext, NULL_USER } from './components/userProfile/useUserProfile';
 import { useState } from 'react';
 
-document.title = 'SwapSounds from The A-Listers';
+document.title = 'Tangled Tunes';
 
 function App() {
   const [userProfile, setUserProfile] = useState<UserProfile>(NULL_USER);

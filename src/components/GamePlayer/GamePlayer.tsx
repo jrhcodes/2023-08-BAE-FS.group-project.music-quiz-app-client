@@ -28,7 +28,7 @@ const GamePlayer: React.FC = () => {
     const endGame = () => {
         // TODO: reimplement code to save game duration
         navigate("/gameresults", {
-            state: { trackNames: trackNames, mp3URLs: mp3URLs, timeTaken: 30 }
+            state: { trackNames: trackNames, mp3URLs: mp3URLs, timeTaken: 30, answers: gameResults.answers }
         });
     };
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 // import Nav from './nav';
 
 import { UserProfileContext } from "../userProfile/useUserProfile";
@@ -9,19 +9,18 @@ import { UserProfileContext } from "../userProfile/useUserProfile";
 const Header: React.FC = () => {
     const { userProfile, } = useContext(UserProfileContext);
 
-    const { userId, } = useState(userProfile.id);
+    // const { userId, } = useState(userProfile.id);
 
-    return <header >
-        <h1>🎵🎶The A-Listers' Tangled Tunes🎵🎶</h1>
-        <div className='header'>
-
-        </div>
-        <div>
+    return <header className="mainHeader">
+        <h1>🎵🎶Tangled Tunes🎵🎶</h1>
+        <div className='userInfo'>
             {userProfile?.picture && <img src={userProfile.picture} alt="user image" />}
-            <h3>User Logged in</h3>
-            {userProfile?.name && <p>Name: {userProfile.name}</p>}
-            {userProfile?.email && <p>Email Address: {userProfile.email}</p>}
-            {userProfile?.id && <p>ID: {userProfile.id}</p>}
+            <div className="userText">
+                {/* {userProfile?.id && <h3>User Logged in</h3>} */}
+                {userProfile?.name && <div>Name: {userProfile.name}</div>}
+                {userProfile?.email && <div>Email Address: {userProfile.email}</div>}
+                {/* {userProfile?.id && <div>ID: {userProfile.id}</div>} */}
+            </div>
         </div>
     </header>;
 }

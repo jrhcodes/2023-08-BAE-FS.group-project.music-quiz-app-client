@@ -7,12 +7,13 @@ import { UserProfile, UserProfileContext } from "../userProfile/useUserProfile";
 const Home: React.FC = () => {
     const [user, setUser]: any = useState();
     const { userProfile, setUserProfile } = useContext(UserProfileContext);
-    const [serverResponse, setServerResponse]: any = useState();
+    // const [serverResponse, setServerResponse]: any = useState();
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => setUser(codeResponse),
         onError: (error) => console.log("Login Failed:", error),
     });
+
     // // TODO: this
     // const logOut = () => {
     //     googleLogout();
@@ -33,14 +34,11 @@ const Home: React.FC = () => {
                 )
                 .then((res: { data: any }) => {
                     setUserProfile(res.data);
-                    console.log(
-                        "CALL TO SERVER HERE AND CREATE USER PROFILE IF NOT EXISTS"
-                    );
                     postUserProfile(res.data);
                 })
                 .catch((err: any) => console.log(err));
         }
-    }, [user]);
+    }, [user, setUserProfile]);
 
     const postUserProfile = async (userProfile: UserProfile) => {
         try {
@@ -57,31 +55,18 @@ const Home: React.FC = () => {
                     },
                 }
             );
-            setServerResponse(response.data);
+
+            if (response.data === undefined)
+                throw new Error("Server did not register user.");
+            // setServerResponse(response.data);
         } catch (error) {
             console.log(error);
         }
     };
 
-    // const postUserProfile = (async () => {
-    //     const rawResponse = await fetch('http://localhost:8080/api/v1/musicquiz/userprofile', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ userId: 300, userName: 'player3' })
-    //     });
-    //     const content = await rawResponse.json();
-
-    //     console.log(content);
-    // });
-
-    console.log(serverResponse);
-
     return (
         <section className="home-section">
-            {serverResponse && userProfile ? (
+            {(userProfile.id !== "") ? (
                 <>
                     {/* <button className='login-button' onClick={logOut}>Log out</button> */}
                     <Navigate to="/welcome" />

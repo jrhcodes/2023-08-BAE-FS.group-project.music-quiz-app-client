@@ -1,17 +1,12 @@
 export interface PostUserGameRequestDTO {
     userId: string;
     songName: string[];
-    songURL: string[];
-    userAtPosition: string[];
-    userScore: number;
+    correctSongName: string[];
+    userTimeTaken: number;
 }
 
 export interface PostUserGameResponseDTO {
-    userId: string;
-    songName: string[];
-    songURL: string[];
-    userAtPosition: string[];
-    userScore: number;
+    userAtPosition: number;
 }
 
 const postUserHighScore = async (request: PostUserGameRequestDTO): Promise<PostUserGameResponseDTO> => {
@@ -31,7 +26,7 @@ const postUserHighScore = async (request: PostUserGameRequestDTO): Promise<PostU
         throw new Error(`Network response was not ok. Status: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data:PostUserGameResponseDTO = await response.json();
     return data;
 };
 

@@ -15,6 +15,7 @@ const Welcome: React.FC = () => {
     const [gameLoaded, setDataLoaded] = useState(false);
     const [songName, setSongName] = useState<string[]>([]);
     const [songURL, setSongURL] = useState<string[]>([]);
+    const [correctName, setCorrectName] = useState<string[]>([]);
 
     const [highScoreLoaded, setHighScoreLoaded] = useState(false);
     const [highScore, setHighScore] = useState<GetHighScoreResponseDTO[]>();
@@ -27,8 +28,8 @@ const Welcome: React.FC = () => {
         if (!gameLoaded) {
 
             const gameDTO = await getGame();
-
-            setSongName(gameDTO.songName);
+            setCorrectName(gameDTO.songName)
+            setSongName(gameDTO.songName.sort(() => Math.random()));
             setSongURL(gameDTO.songURL);
 
 
@@ -115,7 +116,7 @@ const Welcome: React.FC = () => {
                 </tbody>
             </table>
         </div>
-        {<button disabled={!gameLoaded} onClick={() => navigate("/gameplayer", { state: { trackNames: songName, mp3URLs: songURL } })}>{gameLoaded ? "Start Game" : "Loading game data..."}</button>}
+        {<button disabled={!gameLoaded} onClick={() => navigate("/gameplayer", { state: { trackNames: songName, mp3URLs: songURL, answers: correctName } })}>{gameLoaded ? "Start Game" : "Loading game data..."}</button>}
     </div>
 }
 export default Welcome;

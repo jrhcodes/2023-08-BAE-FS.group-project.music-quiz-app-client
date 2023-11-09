@@ -69,7 +69,7 @@ header>h1 {
   text-align: center;
   color: pink;
   background: none;
-  padding: 0;
+  padding: 20px;
   margin: 0;
   width: 100%;
   height: 100%;
@@ -317,9 +317,13 @@ button {
 }
 
 .welcomeMain {
-  display: block;
   width: 100%;
   align-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .welcomeMain>button {
@@ -329,20 +333,18 @@ button {
 .resultsMain {
   display: flex;
   padding: 10px;
-  box-sizing: content-box;
-  margin-left: 100px;
-  margin-right: 100px;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width: fit-content;
   border-radius: 50px;
   font-size: 20px;
   background-image: radial-gradient(black, purple);
   padding: 20px;
   margin: 20px;
   align-content: center;
+  border: solid;
 }
 
 .resultsTable {
@@ -366,6 +368,26 @@ button {
   margin: 10px;
   padding: 10px;
 }
+
+.resultsGameScore {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  vertical-align: center;
+  border: solid;
+  padding: 10px;
+}
+
+.resultsGameScore>div {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+}
+
+.resultsMain audio {
+  padding: 10px;
+}
+
 
 .resultsMain>button {
   font-size: 60px;

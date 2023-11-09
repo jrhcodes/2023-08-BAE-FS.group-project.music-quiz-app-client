@@ -5,6 +5,7 @@ import getHighScore, { GetHighScoreResponseDTO } from '../../dto/getHighScoreDTO
 import getUserHighScore, { GetUserHighScoreResponseDTO } from '../../dto/getUserHighScoreDTO';
 import { UserProfileContext } from '../userProfile/useUserProfile';
 import { v4 as uuidv4 } from 'uuid';
+import { GetGameResponseDTO } from '../../dto/getGameDTO';
 
 const Welcome: React.FC = () => {
 
@@ -29,10 +30,11 @@ const Welcome: React.FC = () => {
 
         if (!gameLoaded) {
 
-            const gameDTO = await getGame();
-            console.log("Welcome, asyncFetchGameDTO", { gameDTO })
-            setCorrectName([...gameDTO.songName]);
-            const randomisedArray = [...(gameDTO.songName).sort(() => Math.random() - 0.5)];
+            const gameDTO: GetGameResponseDTO = await getGame();
+            console.log("Welcome, asyncFetchGameDTO", { gameDTO });
+            const songList = gameDTO.songName.map((song: string, index: number) => `"${song}", ${gameDTO.songArtist[index]}`);
+            setCorrectName([...songList]);
+            const randomisedArray = [...songList.sort(() => Math.random() - 0.5)];
             setSongName([...randomisedArray]);
             setSongURL([...gameDTO.songURL]);
 
